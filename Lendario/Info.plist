@@ -37,6 +37,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>xilosa_.ttf</string>
+		<string>ChelseaMarket-Regular.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

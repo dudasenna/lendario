@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B4C06A6324A0EF1300E77AE3"
-               BuildableName = "Lendario.app"
+               BuildableName = "Lenda&#x301;rio.app"
                BlueprintName = "Lendario"
                ReferencedContainer = "container:Lendario.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B4C06A6324A0EF1300E77AE3"
-            BuildableName = "Lendario.app"
+            BuildableName = "Lenda&#x301;rio.app"
             BlueprintName = "Lendario"
             ReferencedContainer = "container:Lendario.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B4C06A6324A0EF1300E77AE3"
-            BuildableName = "Lendario.app"
+            BuildableName = "Lenda&#x301;rio.app"
             BlueprintName = "Lendario"
             ReferencedContainer = "container:Lendario.xcodeproj">
          </BuildableReference>

@@ -23,21 +23,21 @@ class MainScene: SKScene {
         background.isHidden = false
         self.addChild(background)
         
-        logo.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        logo.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
         logo.zPosition = 1
         logo.isHidden = false
         self.addChild(logo)
         
         lendarioName = SKLabelNode(fontNamed: "Xilosa")
-        lendarioName.position = CGPoint(x: size.width * 0.5, y: size.height * 0.65)
+        lendarioName.position = CGPoint(x: size.width * 0.5, y: size.height * 0.75)
         lendarioName.zPosition = 1
         lendarioName.fontSize = 36
         lendarioName.text = "Lendário"
         lendarioName.fontColor = .white
         self.addChild(lendarioName)
         
-        touchToBegin = SKLabelNode(fontNamed: "Xilosa")
-        touchToBegin.position = CGPoint(x: size.width * 0.5, y: size.height * 0.1)
+        touchToBegin = SKLabelNode(fontNamed: "ChelseaMarket-Regular")
+        touchToBegin.position = CGPoint(x: size.width * 0.5, y: size.height * 0.15)
         touchToBegin.zPosition = 1
         touchToBegin.fontSize = 20
         touchToBegin.text = "- Toque para começar -"

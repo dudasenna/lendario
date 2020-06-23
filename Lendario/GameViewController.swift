@@ -15,11 +15,19 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*for family: String in UIFont.familyNames{
+            print(family)
+            for names: String in UIFont.fontNames(forFamilyName: family) {
+                print("== \(names)")
+            }
+        }*/
+        
+        
         if let view = self.view as! SKView? {
             
             let scene = MainScene(size: view.bounds.size)
             scene.scaleMode = .aspectFit
-    
+            
             view.presentScene(scene)
             view.ignoresSiblingOrder = true
             view.showsFPS = true
@@ -32,7 +40,7 @@ class GameViewController: UIViewController {
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-            return .landscapeRight
+        return .landscapeRight
     }
     
     override var prefersStatusBarHidden: Bool {
