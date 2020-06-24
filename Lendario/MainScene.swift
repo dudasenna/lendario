@@ -6,6 +6,7 @@
 //  Copyright © 2020 Jéssica Amaral. All rights reserved.
 //
 
+import UIKit
 import SpriteKit
 import GameplayKit
 
@@ -20,6 +21,7 @@ class MainScene: SKScene {
         
         background.size = size
         background.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        background.zPosition = -1
         background.isHidden = false
         self.addChild(background)
         
@@ -27,6 +29,13 @@ class MainScene: SKScene {
         logo.zPosition = 1
         logo.isHidden = false
         self.addChild(logo)
+        
+        let pulseAction = SKAction.sequence([
+            SKAction.fadeAlpha(by: -0.5, duration: 0.9),
+            SKAction.fadeAlpha(by: 0.5, duration: 0.9),
+        ])
+        
+        logo.run(SKAction.repeatForever(pulseAction))
         
         lendarioName = SKLabelNode(fontNamed: "Xilosa")
         lendarioName.position = CGPoint(x: size.width * 0.5, y: size.height * 0.75)
@@ -36,6 +45,8 @@ class MainScene: SKScene {
         lendarioName.fontColor = .white
         self.addChild(lendarioName)
         
+        lendarioName.run(SKAction.repeatForever(pulseAction))
+        
         touchToBegin = SKLabelNode(fontNamed: "ChelseaMarket-Regular")
         touchToBegin.position = CGPoint(x: size.width * 0.5, y: size.height * 0.15)
         touchToBegin.zPosition = 1
@@ -43,6 +54,8 @@ class MainScene: SKScene {
         touchToBegin.text = "- Toque para começar -"
         touchToBegin.fontColor = .white
         self.addChild(touchToBegin)
+        
+        touchToBegin.run(SKAction.repeatForever(pulseAction))
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -60,6 +73,9 @@ class MainScene: SKScene {
         
         touchToBegin.run(SKAction.move(by: CGVector(dx: -50, dy: -100), duration: 0.5)){
             self.touchToBegin.isHidden = true
+            self.view?.presentScene(OpenScene(size: self.size))
         }
+        
+        
     }
 }
