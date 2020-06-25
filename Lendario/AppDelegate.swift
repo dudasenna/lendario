@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Lendario
 //
-//  Created by Jéssica Amaral on 22/06/20.
-//  Copyright © 2020 Jéssica Amaral. All rights reserved.
+//  Created by Fenda do Biquini on 25/06/20.
+//  Copyright © 2020 Fenda do Biquini. All rights reserved.
 //
 
 import UIKit
