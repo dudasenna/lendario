@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		479547E124A527DA0000C42C /* character.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 479547E024A527DA0000C42C /* character.atlas */; };
 		B428FBAA24A3B68C00A526D2 /* CrossroadsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B428FBA924A3B68C00A526D2 /* CrossroadsScene.swift */; };
 		B4BF460424A4FF9400DDB35C /* MaeDaguaScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BF460324A4FF9400DDB35C /* MaeDaguaScene.swift */; };
 		B4C06A6824A0EF1300E77AE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C06A6724A0EF1300E77AE3 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		479547E024A527DA0000C42C /* character.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = character.atlas; sourceTree = "<group>"; };
 		B428FBA924A3B68C00A526D2 /* CrossroadsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossroadsScene.swift; sourceTree = "<group>"; };
 		B4BF460324A4FF9400DDB35C /* MaeDaguaScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaeDaguaScene.swift; sourceTree = "<group>"; };
 		B4C06A6424A0EF1300E77AE3 /* Lendário.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lendário.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +68,7 @@
 		B4C06A6624A0EF1300E77AE3 /* Lendario */ = {
 			isa = PBXGroup;
 			children = (
+				479547E024A527DA0000C42C /* character.atlas */,
 				B4C06A6724A0EF1300E77AE3 /* AppDelegate.swift */,
 				B4C06A6D24A0EF1300E77AE3 /* MainScene.swift */,
 				B4C06A8724A279B900E77AE3 /* OpenScene.swift */,
@@ -151,6 +154,7 @@
 				B4C06A7324A0EF1300E77AE3 /* Main.storyboard in Resources */,
 				B4C06A7524A0EF1500E77AE3 /* Assets.xcassets in Resources */,
 				B4C06A7824A0EF1500E77AE3 /* LaunchScreen.storyboard in Resources */,
+				479547E124A527DA0000C42C /* character.atlas in Resources */,
 				B4C06A8624A26E6E00E77AE3 /* ChelseaMarket-Regular.ttf in Resources */,
 				B4C06A8424A163AF00E77AE3 /* xilosa_.ttf in Resources */,
 			);
