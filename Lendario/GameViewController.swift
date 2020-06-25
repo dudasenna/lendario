@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Descobrir os nomes das fontes disponíveis
         /*for family: String in UIFont.familyNames{
             print(family)
             for names: String in UIFont.fontNames(forFamilyName: family) {
@@ -22,13 +23,17 @@ class GameViewController: UIViewController {
             }
         }*/
         
-        
+        //Função que define a cena inicial do jogo (Tela inicial)
         if let view = self.view as! SKView? {
             
+            //Configura a MainScene para ter o mesmo tamanho da view
             let scene = MainScene(size: view.bounds.size)
-            scene.scaleMode = .aspectFit
+            scene.scaleMode = .resizeFill
             
+            //Chama a MainScene
             view.presentScene(scene)
+            
+            //A Boolean value that indicates whether parent-child and sibling relationships affect the rendering order of nodes in the scene (vem como padrão)
             view.ignoresSiblingOrder = true
             //view.showsFPS = true
             //view.showsNodeCount = true

@@ -10,15 +10,21 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+//Tela Inicial
 class MainScene: SKScene {
+    //Imagens
     let logo = SKSpriteNode(imageNamed: "Logo")
     let background = SKSpriteNode(imageNamed: "Background")
+    
+    //Labels
     var lendarioName: SKLabelNode!
     var touchToBegin: SKLabelNode!
     
     override func didMove(to view: SKView) {
+        //Define o ponto inicial como (0,0)
         self.anchorPoint = .zero
         
+        //Configura a imagem de fundo
         background.size = size
         background.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         background.zPosition = -1
