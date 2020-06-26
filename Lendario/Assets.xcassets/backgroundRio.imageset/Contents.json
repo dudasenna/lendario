@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "rioDia.png",
+      "filename" : "background.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "rioDia@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "rioDia@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
