@@ -53,6 +53,10 @@ class MaeDaguaScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        //Se a próxima posição da personagem for menor do que a inicial (0,0), então ela não anda
+        if (character.physicsBody!.velocity.dx + character.position.x) < 0 {
+            charVelocity = 0
+        }
         //Define a velocidade da personagem (andando pra frente - 200 -, pra trás - -200 - ou parada)
         character.physicsBody?.velocity.dx = charVelocity
         //updateBackground()
