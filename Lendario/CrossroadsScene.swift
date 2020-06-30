@@ -13,17 +13,18 @@ import GameplayKit
 class CrossroadsScene: SKScene {
     
     var character = SKSpriteNode()
-    var background = SKSpriteNode()
     var board = SKSpriteNode()
     
     let sky = SKSpriteNode(imageNamed: "Céu")
     let floor = SKSpriteNode(imageNamed: "Chão")
     let sun = SKSpriteNode(imageNamed: "Sol")
     
+    var makeYourChoice = UILabel()
+    
     var riverButton = UIButton()
-    var soon1 = UIButton()
-    var soon2 = UIButton()
-    var soon3 = UIButton()
+    var cityButton = UIButton()
+    var forestButton = UIButton()
+    var sertaoButton = UIButton()
     
     private var charWalkingFrames: [SKTexture] = []
     
@@ -54,12 +55,49 @@ class CrossroadsScene: SKScene {
         board.zPosition = 1
         self.addChild(board)
         
-        riverButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 40)
+        makeYourChoice.frame = CGRect(x: frame.minX , y: size.height * 0.075, width: frame.width, height:  30)
+        makeYourChoice.font = UIFont(name: "ChelseaMarket-Regular", size: 30)
+        makeYourChoice.textColor = .white
+        makeYourChoice.text = "Para onde você gostaria de ir?"
+        makeYourChoice.textAlignment = .center
+        makeYourChoice.lineBreakMode = .byWordWrapping
+        makeYourChoice.numberOfLines = 0
+        makeYourChoice.isHidden = true
+        view.addSubview(makeYourChoice)
+        
+        riverButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 30)
         riverButton.setTitle("Rio", for: .normal)
         riverButton.setTitleColor(.black, for: .normal)
         riverButton.isHidden = true
         riverButton.addTarget(self, action: #selector(maeDaguaTransition), for: .touchUpInside)
         view.addSubview(riverButton)
+        
+        forestButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 30)
+        forestButton.setTitle("Floresta", for: .normal)
+        forestButton.setTitleColor(.black, for: .normal)
+        forestButton.setTitleColor(.gray, for: .disabled)
+        forestButton.isHidden = true
+        forestButton.isEnabled = false
+        //forestButton.addTarget(self, action: #selector(maeDaguaTransition), for: .touchUpInside)
+        view.addSubview(forestButton)
+        
+        cityButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 30)
+        cityButton.setTitle("Cidade", for: .normal)
+        cityButton.setTitleColor(.black, for: .normal)
+        cityButton.setTitleColor(.gray, for: .disabled)
+        cityButton.isHidden = true
+        cityButton.isEnabled = false
+        //cityButton.addTarget(self, action: #selector(maeDaguaTransition), for: .touchUpInside)
+        view.addSubview(cityButton)
+        
+        sertaoButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 30)
+        sertaoButton.setTitle("Sertão", for: .normal)
+        sertaoButton.setTitleColor(.black, for: .normal)
+        sertaoButton.setTitleColor(.gray, for: .disabled)
+        sertaoButton.isHidden = true
+        sertaoButton.isEnabled = false
+        //sertaoButton.addTarget(self, action: #selector(maeDaguaTransition), for: .touchUpInside)
+        view.addSubview(sertaoButton)
         
         //Coloca o personagem animado na tela
         buildChar()
@@ -85,7 +123,7 @@ class CrossroadsScene: SKScene {
         
         let firstFrameTexture = charWalkingFrames[0]
         character = SKSpriteNode(texture: firstFrameTexture)
-        character.position = CGPoint(x: frame.minX, y: frame.minY + character.size.height)
+        character.position = CGPoint(x: frame.minX, y: frame.minY + (character.size.height * 0.8))
         character.zPosition = 2
         
         animateChar()
@@ -104,21 +142,51 @@ class CrossroadsScene: SKScene {
     
     private func moveEnded(){
         let charDisappear = SKAction.fadeOut(withDuration: 0.2)
-        let moveBoard = SKAction.move(to: CGPoint(x: frame.midX, y: board.position.y), duration: 0.4)
+        let moveBoard = SKAction.move(to: CGPoint(x: frame.midX, y: size.height * 0.3), duration: 0.3)
         let zoomBoard = SKAction.scale(to: 1.5, duration: 0.3)
         let boardAction = SKAction.sequence([moveBoard, zoomBoard])
         
         character.run(charDisappear){
             self.board.run(boardAction){
-                self.riverButton.frame = CGRect(x: self.board.position.x, y: self.board.frame.midY * 0.5, width: self.board.size.width * 0.5, height: 50)
+                self.makeYourChoice.isHidden = false
+                self.sertaoButton.frame = CGRect(x: self.board.position.x, y: self.board.frame.midY, width: self.board.size.width * 0.5, height: 50)
+                self.forestButton.frame = CGRect(x: self.board.position.x - self.board.size.width * 0.5 + 10, y: self.board.frame.midY + 50, width: self.board.size.width * 0.5, height: 50)
+                self.cityButton.frame = CGRect(x: self.board.position.x, y: self.board.frame.midY + 118, width: self.board.size.width * 0.5, height: 50)
+                self.riverButton.frame = CGRect(x: self.board.position.x - self.board.size.width * 0.45, y: self.board.frame.midY + 185, width: self.board.size.width * 0.5, height: 50)
                 self.riverButton.isHidden = false
+                self.forestButton.isHidden = false
+                self.cityButton.isHidden = false
+                self.sertaoButton.isHidden = false
             }
         }
     }
     
     @IBAction func maeDaguaTransition(){
+        makeYourChoice.isHidden = true
+        
+        makeYourChoice.removeFromSuperview()
         riverButton.removeFromSuperview()
-        self.view?.presentScene(MaeDaguaScene(size: self.size))
+        forestButton.removeFromSuperview()
+        cityButton.removeFromSuperview()
+        sertaoButton.removeFromSuperview()
+        
+        let finalAction = SKAction.fadeOut(withDuration: 0.6)
+        
+        board.run(finalAction) {
+            self.board.isHidden = true
+        }
+        
+        sky.run(finalAction) {
+            self.sky.isHidden = true
+        }
+        floor.run(finalAction){
+            self.floor.isHidden = true
+        }
+        sun.run(finalAction){
+            self.sun.isHidden = true
+            //Chama a cena de escolha da Lenda
+            self.view?.presentScene(MaeDaguaScene(size: self.size))
+        }
     }
     
 }
