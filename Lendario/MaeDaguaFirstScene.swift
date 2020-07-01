@@ -13,19 +13,18 @@ import GameplayKit
 
 class MaeDaguaFirstScene: SKScene {
     private var character = SKSpriteNode()
-    var backgroundDayFloor = SKSpriteNode()
-    var backgroundDayRiver = SKSpriteNode()
-    var backgroundNightFloor = SKSpriteNode()
-    var backgroundNightRiver = SKSpriteNode()
+    private var fishman = SKSpriteNode()
+    private var backgroundDayFloor = SKSpriteNode()
+    private var backgroundDayRiver = SKSpriteNode()
+    private var backgroundNightFloor = SKSpriteNode()
+    private var backgroundNightRiver = SKSpriteNode()
     
     private var charWalkingFrames: [SKTexture] = []
+    private var fishmanWalkingFrames: [SKTexture] = []
     
-    let cam = SKCameraNode()
+    private let cam = SKCameraNode()
     
-    var charVelocity: CGFloat = 0
-    
-    var inicialPos: CGPoint!
-    var livePos: CGPoint!
+    private var charVelocity: CGFloat = 0
     
 //    class ViewController: UIViewController {
 //        override func viewDidLoad() {
@@ -68,8 +67,11 @@ class MaeDaguaFirstScene: SKScene {
         //atribui a câmera
         self.camera = cam
         
-        //Posiciona a personagem principal na c3ena
+        //Posiciona a personagem principal na cena
         buildChar()
+        
+        //Posiciona pescador na cena
+        //buildFishman()
         
         backgroundDayFloor = SKSpriteNode(imageNamed: "CenarioDia1")
         backgroundDayFloor.anchorPoint = .zero
@@ -298,7 +300,7 @@ class MaeDaguaFirstScene: SKScene {
         let location = touch.location(in: self)
         
         //A personagem só se movimenta pra ambos os lados se sua posição for maior do que a inicial, se for menor, ela só pode ir para frente
-        if character.position.x > inicialPos.x || location.x > character.position.x{
+        if character.position.x > 0 || location.x > character.position.x{
             var multiplierForDirection: CGFloat
             
             character.isPaused = false
@@ -335,14 +337,13 @@ class MaeDaguaFirstScene: SKScene {
             let charTextureName = "female_walk\(i)"
             walkFrames.append(charAnimatedAtlas.textureNamed(charTextureName))
         }
+        
         charWalkingFrames = walkFrames
         
-        let firstFrameTexture = charWalkingFrames[0]
-        character = SKSpriteNode(texture: firstFrameTexture)
-        
+        character = SKSpriteNode(imageNamed: "female_walk0")
         character.position = CGPoint(x: frame.minX, y: frame.midY)
+        character.size = CGSize(width: frame.width * 0.07, height: frame.height * 0.3)
         character.zPosition = 1
-        inicialPos = character.position
         
         character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
         character.physicsBody?.affectedByGravity = false
@@ -352,13 +353,34 @@ class MaeDaguaFirstScene: SKScene {
     }
     
     private func animateChar() {
-        let walkAction = SKAction.animate(with: charWalkingFrames, timePerFrame: 0.3)
+        let walkAction = SKAction.animate(with: charWalkingFrames, timePerFrame: 0.25)
         let charAction = SKAction.repeatForever(walkAction)
         character.run(charAction)
     }
     
     private func charMoveEnded() {
         character.isPaused = true
+    }
+    
+    private func buildFishman() {
+        let fishmanAnimatedAtlas = SKTextureAtlas(named: "Fishman")
+        var walkFrames: [SKTexture] = []
+        
+        let numImages = fishmanAnimatedAtlas.textureNames.count
+        for i in 1...numImages {
+            let fishmanTextureName = "female_walk\(i)"
+            walkFrames.append(fishmanAnimatedAtlas.textureNamed(fishmanTextureName))
+        }
+        
+        fishmanWalkingFrames = walkFrames
+        
+        fishman = SKSpriteNode(imageNamed: "fishman0")
+        fishman.position = CGPoint(x: 0, y: frame.midY)
+        fishman.size = CGSize(width: frame.width * 0.07, height: frame.height * 0.3)
+        fishman.zPosition = 1
+        
+        self.addChild(fishman)
+        
     }
     
     /*

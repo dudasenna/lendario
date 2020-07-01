@@ -121,8 +121,8 @@ class CrossroadsScene: SKScene {
         
         charWalkingFrames = walkFrames
         
-        let firstFrameTexture = charWalkingFrames[0]
-        character = SKSpriteNode(texture: firstFrameTexture)
+        character = SKSpriteNode(texture: SKTextureAtlas(named: "character").textureNamed("female_walk0"))
+        character.size = CGSize(width: frame.width * 0.07, height: frame.height * 0.3)
         character.position = CGPoint(x: frame.minX, y: frame.minY + (character.size.height * 0.8))
         character.zPosition = 2
         
@@ -132,11 +132,10 @@ class CrossroadsScene: SKScene {
     }
     
     private func animateChar() {
-        let walkAction = SKAction.animate(with: charWalkingFrames, timePerFrame: 0.3)
+        let walkAction = SKAction.animate(with: charWalkingFrames, timePerFrame: 0.25)
         let charWalkMove = SKAction.repeatForever(walkAction)
-        let charMoveTo = SKAction.move(to: CGPoint(x: board.position.x - 40, y: character.position.y), duration: 3)
+        let charMoveTo = SKAction.move(to: CGPoint(x: board.position.x - 40, y: character.position.y), duration: 3.5)
         let charWalking = SKAction.group([charWalkMove, charMoveTo])
-        //let charFullMoviment = SKAction.sequence([charWalking, chara])
         character.run(charWalking)
     }
     
