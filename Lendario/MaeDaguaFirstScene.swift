@@ -18,6 +18,15 @@ class MaeDaguaFirstScene: SKScene {
     private var backgroundDayRiver = SKSpriteNode()
     private var backgroundNightFloor = SKSpriteNode()
     private var backgroundNightRiver = SKSpriteNode()
+    private var speechBubble = SKSpriteNode()
+    
+    private var speechLine = SKLabelNode()
+    
+    //Flags
+    var firstSpeechFlag = 0
+    var secondSpeechFlag = 0
+    var finalSpeechFlag = 0
+    var currentLine = 0
     
     private var charWalkingFrames: [SKTexture] = []
     private var fishmanWalkingFrames: [SKTexture] = []
@@ -26,22 +35,26 @@ class MaeDaguaFirstScene: SKScene {
     
     private var charVelocity: CGFloat = 0
     
-//    class ViewController: UIViewController {
-//        override func viewDidLoad() {
-//            super.viewDidLoad()
-//
-//            let pauseButton = UIButton(frame: CGRect(x: 360, y: 150, width: 200, height: 50))
-//            pauseButton.backgroundColor = .red
-//            pauseButton.addTarget(self, action: #selector(pauseButtonAction), for: .touchUpInside)
-//
-//            self.view.addSubview(pauseButton)
-//        }
-//
-//        @objc func pauseButtonAction (sender: UIButton!) {
-//            print("Pause button tapped")
-//        }
-//
-//    }
+    private var nextLineGirlButton = UIButton()
+    private var nextLineFishmanButton = UIButton()
+    private var interrogationButton = UIButton()
+    
+    //    class ViewController: UIViewController {
+    //        override func viewDidLoad() {
+    //            super.viewDidLoad()
+    //
+    //            let pauseButton = UIButton(frame: CGRect(x: 360, y: 150, width: 200, height: 50))
+    //            pauseButton.backgroundColor = .red
+    //            pauseButton.addTarget(self, action: #selector(pauseButtonAction), for: .touchUpInside)
+    //
+    //            self.view.addSubview(pauseButton)
+    //        }
+    //
+    //        @objc func pauseButtonAction (sender: UIButton!) {
+    //            print("Pause button tapped")
+    //        }
+    //
+    //    }
     
     let redColor = UIColor(red: 141/255, green: 46/255, blue: 33/255, alpha: 1)
     
@@ -63,21 +76,22 @@ class MaeDaguaFirstScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.anchorPoint = .zero
-        print(size)
         //atribui a câmera
         self.camera = cam
         
         //Posiciona a personagem principal na cena
         buildChar()
         
-        //Posiciona pescador na cena
-        //buildFishman()
+        self.scene?.isUserInteractionEnabled = false
         
         backgroundDayFloor = SKSpriteNode(imageNamed: "CenarioDia1")
         backgroundDayFloor.anchorPoint = .zero
         backgroundDayFloor.position = CGPoint(x: -frame.width/2, y: 0)
         backgroundDayFloor.zPosition = 0
         self.addChild(backgroundDayFloor)
+        
+        //Posiciona pescador na cena
+        buildFishman(positionX: backgroundDayFloor.size.width)
         
         //background setup
         backgroundDayRiver = SKSpriteNode(imageNamed: "CenarioDia2")
@@ -102,6 +116,36 @@ class MaeDaguaFirstScene: SKScene {
         backgroundNightRiver.isHidden = true
         self.addChild(backgroundNightRiver)
         
+        speechBubble = SKSpriteNode(imageNamed: "SpeechBubble")
+        speechBubble.size = CGSize(width: frame.width * 0.3, height: frame.height * 0.3)
+        speechBubble.position = CGPoint(x: character.position.x + speechBubble.size.width/2, y: frame.height * 0.8)
+        speechBubble.zPosition = 1
+        self.addChild(speechBubble)
+        
+        speechLine.text = "Nossa, onde será que eu estou, nesse lugar tão deserto?!"
+        speechLine.preferredMaxLayoutWidth = speechBubble.size.width - 20
+        speechLine.fontName = "ChelseaMarket-Regular"
+        speechLine.fontSize = 15
+        speechLine.fontColor = .black
+        speechLine.numberOfLines = 3
+        speechLine.horizontalAlignmentMode = .center
+        speechLine.position = CGPoint(x: speechBubble.position.x, y: speechBubble.position.y * 0.98)
+        speechLine.zPosition = 2
+        currentLine = 1
+        self.addChild(speechLine)
+        
+        nextLineGirlButton.setImage(UIImage(named: "NextSign"), for: .normal)
+        nextLineGirlButton.frame = CGRect(x: frame.midX + speechBubble.size.width - 30, y: size.height * 0.19, width: 20, height: 22)
+        nextLineGirlButton.addTarget(self, action: #selector(firstSpeech), for: .touchUpInside)
+        view.addSubview(nextLineGirlButton)
+        
+        interrogationButton.setImage(UIImage(named: "interrogation"), for: .normal)
+        interrogationButton.frame = CGRect(x: size.width/2 + character.size.width - 20, y: size.height * 0.19, width: 100, height: 100)
+        print(interrogationButton.frame)
+        interrogationButton.addTarget(self, action: #selector(fishmanDialogue), for: .touchUpInside)
+        interrogationButton.isHidden = true
+        view.addSubview(interrogationButton)
+        
         blurSubview.frame = view.bounds
         blurSubview.backgroundColor = UIColor(white: 1, alpha: 0.7)
         blurSubview.addTarget(self, action: #selector(continueButtonAction), for: .touchUpInside)
@@ -109,11 +153,11 @@ class MaeDaguaFirstScene: SKScene {
         view.addSubview(blurSubview)
         
         configButton.frame = CGRect(x: 100, y: 35, width: 50, height: 50)
-//        configButton.setImage(configIcon, for: .normal)
+        //        configButton.setImage(configIcon, for: .normal)
         configButton.backgroundColor = .blue
-//        pauseButton.contentMode = .center
-//        configButton.imageView?.contentMode = .scaleAspectFill
-//        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
+        //        pauseButton.contentMode = .center
+        //        configButton.imageView?.contentMode = .scaleAspectFill
+        //        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
         configButton.addTarget(self, action: #selector(configButtonAction), for: .touchUpInside)
         view.addSubview(configButton)
         
@@ -168,9 +212,9 @@ class MaeDaguaFirstScene: SKScene {
         pauseButton.frame = CGRect(x: 800, y: 35, width: 50, height: 50)
         pauseButton.setImage(pauseIcon, for: .normal)
         pauseButton.backgroundColor = .blue
-//        pauseButton.contentMode = .center
+        //        pauseButton.contentMode = .center
         pauseButton.imageView?.contentMode = .scaleAspectFill
-//        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
+        //        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
         pauseButton.addTarget(self, action: #selector(pauseButtonAction), for: .touchUpInside)
         view.addSubview(pauseButton)
         
@@ -279,8 +323,12 @@ class MaeDaguaFirstScene: SKScene {
         let offset = character.physicsBody!.velocity.dx + character.position.x
         
         //offset menor que zero ou maior ou igual a posição do pescador - 40, para
-        if (offset < 0)  {
+        if (offset < 0) || (character.position.x >= fishman.position.x - character.size.width - 20){
             charVelocity = 0
+        }
+        
+        if (character.position.x >= fishman.position.x - character.size.width - 20) && secondSpeechFlag == 0{
+            prepareForFishman()
         }
         
         //Define a velocidade da personagem (andando pra frente - 200 -, pra trás - -200 - ou parada)
@@ -362,7 +410,7 @@ class MaeDaguaFirstScene: SKScene {
         character.isPaused = true
     }
     
-    private func buildFishman() {
+    private func buildFishman(positionX : CGFloat) {
         let fishmanAnimatedAtlas = SKTextureAtlas(named: "Fishman")
         var walkFrames: [SKTexture] = []
         
@@ -375,7 +423,8 @@ class MaeDaguaFirstScene: SKScene {
         fishmanWalkingFrames = walkFrames
         
         fishman = SKSpriteNode(imageNamed: "fishman0")
-        fishman.position = CGPoint(x: 0, y: frame.midY)
+        fishman.position = CGPoint(x: positionX/3, y: frame.midY)
+        fishman.xScale = fishman.xScale * (-1)
         fishman.size = CGSize(width: frame.width * 0.07, height: frame.height * 0.3)
         fishman.zPosition = 1
         
@@ -383,132 +432,49 @@ class MaeDaguaFirstScene: SKScene {
         
     }
     
-    /*
-     Jéssica: Código que Dara fez inicialmente, caso dê algum problema com o que fiz (vai que?)
-     
-     override func didMove(to view: SKView) {
-         print("Entrou na cena da Lenda da Mãe D'água")
-         self.anchorPoint = .zero
-         self.camera = cam
-         buildChar()
-        // animateChar()
-         
-         //background setup
-         background1 = SKSpriteNode(imageNamed: "backgroundRio")
-         background1.anchorPoint = CGPoint.zero
-         background1.position = CGPoint.zero
-         background1.zPosition = -1
-         self.addChild(background1)
-         
-         //background setup
-         background2 = SKSpriteNode(imageNamed: "backgroundRio2")
-         background2.anchorPoint = CGPoint.zero
-         background2.position = CGPoint(x: background1.frame.width, y: 0)
-         background2.zPosition = -1
-         self.addChild(background2)
-
-
-     }
-     
-     override func update(_ currentTime: TimeInterval) {
-         updateBackground()
-     }
-     
-     func updateBackground(){
-         if(cam.position.x > background1.position.x + background1.size.width + 400){
-             background1.position = CGPoint(x: background2.position.x+background2.size.width, y: background1.position.y)
-         }
-         
-         if(cam.position.x > background2.position.x + background2.size.width + 400){
-             background2.position = CGPoint(x: background1.position.x+background1.size.width, y: background2.position.y)
-         }
-         
-         
-     }
-
-     override func didSimulatePhysics() {
-         self.camera!.position = character.position
-     }
-
-     func buildChar() {
-       let charAnimatedAtlas = SKTextureAtlas(named: "character")
-       var walkFrames: [SKTexture] = []
-
-       let numImages = charAnimatedAtlas.textureNames.count
-       for i in 1...numImages {
-         let charTextureName = "female_walk\(i)"
-         walkFrames.append(charAnimatedAtlas.textureNamed(charTextureName))
-       }
-       charWalkingFrames = walkFrames
-
-         let firstFrameTexture = charWalkingFrames[0]
-         character = SKSpriteNode(texture: firstFrameTexture)
-         character.position = CGPoint(x: frame.midX, y: frame.midY + 20)
-         character.zPosition = 1
-         addChild(character)
-
-     }
-
-     func animateChar() {
-       character.run(SKAction.repeatForever(
-         SKAction.animate(with: charWalkingFrames,
-                          timePerFrame: 0.2,
-                          resize: false,
-                          restore: true)),
-         withKey:"walkingInPlaceChar")
-     }
-
-     func charMoveEnded() {
-       character.removeAllActions()
-     }
-     
-     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-         let touch = touches.first!
-         let location = touch.location(in: self)
-         moveChar(location: location)
-     }
-     
-     func moveChar(location: CGPoint) {
-       // 1
-       var multiplierForDirection: CGFloat
-
-       // 2
-       let charSpeed = frame.size.width / 3.0
-
-       // 3
-       let moveDifference = CGPoint(x: location.x - character.position.x, y: location.y - character.position.y)
-       let distanceToMove = sqrt(moveDifference.x * moveDifference.x + moveDifference.y * moveDifference.y)
-
-       // 4
-       let moveDuration = distanceToMove / charSpeed
-
-       // 5
-       if moveDifference.x < 0 {
-         multiplierForDirection = -1.0
-       } else {
-         multiplierForDirection = 1.0
-       }
-       character.xScale = abs(character.xScale) * multiplierForDirection
-
-         // 1
-         if character.action(forKey: "walkingInPlaceChar") == nil {
-           // if legs are not moving, start them
-           animateChar()
-         }
-
-         // 2
-         //let moveAction = SKAction.move(to: location, duration:(TimeInterval(moveDuration)))
-         let moveAction = SKAction.moveTo(x: location.x, duration: (TimeInterval(moveDuration)))
-
-         // 3
-         let doneAction = SKAction.run({ [weak self] in
-           self?.charMoveEnded()
-         })
-
-         // 4
-         let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
-         character.run(moveActionWithDone, withKey:"charMoving")
-     }
-     */
+    private func prepareForFishman(){
+        interrogationButton.isHidden = false
+        secondSpeechFlag = 1
+        //character.isPaused = true
+        //self.scene?.isUserInteractionEnabled = false
+    }
+    
+    @IBAction private func firstSpeech(){
+        if currentLine == 1{
+            speechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.speechLine.position.y = self.speechLine.position.y - 10
+                self.speechLine.text = "Eu apenas tentei começar um jogo e acordei na beira desse rio…"
+                self.speechLine.run(SKAction.fadeIn(withDuration: 0.3))
+            }
+            currentLine = 2
+        } else if currentLine == 2{
+            speechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.speechLine.text = "Acho que é melhor eu começar a andar e procurar alguém que me explique onde estou."
+                self.speechLine.run(SKAction.fadeIn(withDuration: 0.3))
+            }
+            currentLine = 3
+        } else if currentLine == 3{
+            speechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.speechLine.isHidden = true
+            }
+            speechBubble.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.speechBubble.isHidden = true
+                self.nextLineGirlButton.isHidden = true
+                self.scene?.isUserInteractionEnabled = true
+            }
+            currentLine = 0
+        }
+        
+    }
+    
+    @IBAction private func fishmanDialogue(){
+        
+    }
+    
+    @IBAction private func finishScene(){
+        finalSpeechFlag = 1
+        character.isPaused = true
+        self.scene?.isUserInteractionEnabled = false
+    }
 }
 
