@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "CenarioDia2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "CenarioDia2@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "background.png",
+      "filename" : "CenarioDia2@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

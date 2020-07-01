@@ -13,8 +13,10 @@ import GameplayKit
 
 class MaeDaguaScene: SKScene {
     private var character = SKSpriteNode()
-    var background1 = SKSpriteNode()
-    var background2 = SKSpriteNode()
+    var backgroundDayFloor = SKSpriteNode()
+    var backgroundDayRiver = SKSpriteNode()
+    var backgroundNightFloor = SKSpriteNode()
+    var backgroundNightRiver = SKSpriteNode()
     
     private var charWalkingFrames: [SKTexture] = []
     
@@ -27,55 +29,55 @@ class MaeDaguaScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.anchorPoint = .zero
-        
+        print(size)
         //atribui a câmera
         self.camera = cam
         
         //Posiciona a personagem principal na c3ena
         buildChar()
         
-        //background setup
-        background1 = SKSpriteNode(imageNamed: "BackgroundDia")
-        background1.anchorPoint = self.anchorPoint
-        background1.position = CGPoint(x: -size.width * 2, y: .zero)
-        background1.size = CGSize(width: size.width * 6, height: size.height * 1.05)
-        background1.zPosition = -1
-        self.addChild(background1)
-        
+        backgroundDayFloor = SKSpriteNode(imageNamed: "CenarioDia1")
+        backgroundDayFloor.anchorPoint = .zero
+        backgroundDayFloor.position = CGPoint(x: -frame.width/2, y: 0)
+        backgroundDayFloor.zPosition = 0
+        self.addChild(backgroundDayFloor)
         
         //background setup
-        background2 = SKSpriteNode(imageNamed: "BackgroundNoite")
-        background2.anchorPoint = self.anchorPoint
-        background2.position = CGPoint(x: background1.position.x + background1.frame.width, y: 0)
-        background2.size = CGSize(width: size.width * 6, height: background1.frame.height)
-        background2.zPosition = -1
-        self.addChild(background2)
+        backgroundDayRiver = SKSpriteNode(imageNamed: "CenarioDia2")
+        backgroundDayRiver.anchorPoint = .zero
+        backgroundDayRiver.position = CGPoint(x: -frame.width/2, y: 0)
+        backgroundDayRiver.zPosition = 0
+        backgroundDayRiver.isHidden = true
+        self.addChild(backgroundDayRiver)
+        
+        //background setup
+        backgroundNightFloor = SKSpriteNode(imageNamed: "CenarioNoite2")
+        backgroundNightFloor.anchorPoint = .zero
+        backgroundNightFloor.position = CGPoint(x: -frame.width/2, y: 0)
+        backgroundNightFloor.zPosition = 0
+        backgroundNightFloor.isHidden = true
+        self.addChild(backgroundNightFloor)
+        
+        backgroundNightRiver = SKSpriteNode(imageNamed: "CenarioNoite1")
+        backgroundNightRiver.anchorPoint = .zero
+        backgroundNightRiver.position = CGPoint(x: -frame.width/2, y: 0)
+        backgroundNightRiver.zPosition = 0
+        backgroundNightRiver.isHidden = true
+        self.addChild(backgroundNightRiver)
     }
     
     override func update(_ currentTime: TimeInterval) {
         //Se a próxima posição da personagem for menor do que a inicial (0,0), então ela não anda
-        if (character.physicsBody!.velocity.dx + character.position.x) < 0 {
+        let offset = character.physicsBody!.velocity.dx + character.position.x
+        
+        //offset menor que zero ou maior ou igual a posição do pescador - 40, para
+        if (offset < 0)  {
             charVelocity = 0
         }
+        
         //Define a velocidade da personagem (andando pra frente - 200 -, pra trás - -200 - ou parada)
         character.physicsBody?.velocity.dx = charVelocity
-        //updateBackground()
     }
-    
-    /*private func updateBackground(){
-        
-        if(cam.position.x > background1.position.x + background1.size.width * 1.5){
-            if charVelocity > 0 {
-                background1.position = CGPoint(x: background2.position.x + background2.size.width, y: background1.position.y)
-            }
-        }
-        
-        if(cam.position.x > background2.position.x + background2.size.width * 1.5){
-            if charVelocity > 0 {
-                 background2.position = CGPoint(x: background1.position.x + background1.size.width, y: background2.position.y)
-            }
-        }
-    }*/
     
     //Coloca a câmera para "seguir a personagem pela cena"
     override func didSimulatePhysics() {
@@ -132,7 +134,7 @@ class MaeDaguaScene: SKScene {
         let firstFrameTexture = charWalkingFrames[0]
         character = SKSpriteNode(texture: firstFrameTexture)
         
-        character.position = CGPoint(x: frame.minX, y: frame.midY + 20)
+        character.position = CGPoint(x: frame.minX, y: frame.midY)
         character.zPosition = 1
         inicialPos = character.position
         

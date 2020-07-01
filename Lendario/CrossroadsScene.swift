@@ -142,8 +142,8 @@ class CrossroadsScene: SKScene {
     
     private func moveEnded(){
         let charDisappear = SKAction.fadeOut(withDuration: 0.2)
-        let moveBoard = SKAction.move(to: CGPoint(x: frame.midX, y: size.height * 0.3), duration: 0.3)
-        let zoomBoard = SKAction.scale(to: 1.5, duration: 0.3)
+        let moveBoard = SKAction.move(to: CGPoint(x: frame.midX, y: size.height * 0.3), duration: 0.5)
+        let zoomBoard = SKAction.scale(to: 1.5, duration: 0.5)
         let boardAction = SKAction.sequence([moveBoard, zoomBoard])
         
         character.run(charDisappear){

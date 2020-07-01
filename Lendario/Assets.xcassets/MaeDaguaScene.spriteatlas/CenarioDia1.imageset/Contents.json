@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "horizonteBg.png",
+      "filename" : "CenarioDia1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "CenarioDia1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "CenarioDia1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

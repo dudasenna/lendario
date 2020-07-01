@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "chao.png",
+      "filename" : "CenarioNoite1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "chao@2x.png",
+      "filename" : "CenarioNoite1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "chao@3x.png",
+      "filename" : "CenarioNoite1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "Background Noite.png",
+      "filename" : "Lua.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Background Noite@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Background Noite@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
