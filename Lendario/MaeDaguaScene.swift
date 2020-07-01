@@ -27,6 +27,41 @@ class MaeDaguaScene: SKScene {
     var inicialPos: CGPoint!
     var livePos: CGPoint!
     
+//    class ViewController: UIViewController {
+//        override func viewDidLoad() {
+//            super.viewDidLoad()
+//
+//            let pauseButton = UIButton(frame: CGRect(x: 360, y: 150, width: 200, height: 50))
+//            pauseButton.backgroundColor = .red
+//            pauseButton.addTarget(self, action: #selector(pauseButtonAction), for: .touchUpInside)
+//
+//            self.view.addSubview(pauseButton)
+//        }
+//
+//        @objc func pauseButtonAction (sender: UIButton!) {
+//            print("Pause button tapped")
+//        }
+//
+//    }
+    
+    let redColor = UIColor(red: 141/255, green: 46/255, blue: 33/255, alpha: 1)
+    
+    let configButton = UIButton()
+    let configLabel = UILabel()
+    let soundConfigLabel = UILabel()
+    let musicConfigLabel = UILabel()
+    let connectedLabel = UILabel()
+    let backTextButton = UIButton()
+    let backIconButton = UIButton()
+    let pauseButton = UIButton()
+    let blurSubview = UIButton()
+    let popupSubview = UIView()
+    let continueButton = UIButton()
+    let beginButton = UIButton()
+    let soundPauseLabel = UILabel()
+    let musicPauseLabel = UILabel()
+    let pauseIcon = UIImage(named: "pauseIcon.png")
+    
     override func didMove(to view: SKView) {
         self.anchorPoint = .zero
         print(size)
@@ -64,6 +99,177 @@ class MaeDaguaScene: SKScene {
         backgroundNightRiver.zPosition = 0
         backgroundNightRiver.isHidden = true
         self.addChild(backgroundNightRiver)
+        
+        blurSubview.frame = view.bounds
+        blurSubview.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        blurSubview.addTarget(self, action: #selector(continueButtonAction), for: .touchUpInside)
+        blurSubview.isHidden = true
+        view.addSubview(blurSubview)
+        
+        configButton.frame = CGRect(x: 100, y: 35, width: 50, height: 50)
+//        configButton.setImage(configIcon, for: .normal)
+        configButton.backgroundColor = .blue
+//        pauseButton.contentMode = .center
+//        configButton.imageView?.contentMode = .scaleAspectFill
+//        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
+        configButton.addTarget(self, action: #selector(configButtonAction), for: .touchUpInside)
+        view.addSubview(configButton)
+        
+        configLabel.frame = CGRect(x: 80, y: 40, width: 300, height: 50)
+        configLabel.text = "Configurações"
+        configLabel.textColor = redColor
+        configLabel.textAlignment = .left
+        configLabel.font = UIFont(name: "ChelseaMarket-Regular", size: 40)
+        configLabel.isHidden = true
+        view.addSubview(configLabel)
+        
+        soundConfigLabel.frame = CGRect(x: 270, y: 130, width: 200, height: 50)
+        soundConfigLabel.text = "Som:"
+        soundConfigLabel.textColor = .black
+        soundConfigLabel.textAlignment = .left
+        soundConfigLabel.font = UIFont(name: "ChelseaMarket-Regular", size: 25)
+        soundConfigLabel.isHidden = true
+        view.addSubview(soundConfigLabel)
+        
+        musicConfigLabel.frame = CGRect(x: 270, y: 180, width: 200, height: 50)
+        musicConfigLabel.text = "Música:"
+        musicConfigLabel.textColor = .black
+        musicConfigLabel.textAlignment = .left
+        musicConfigLabel.font = UIFont(name: "ChelseaMarket-Regular", size: 25)
+        musicConfigLabel.isHidden = true
+        view.addSubview(musicConfigLabel)
+        
+        connectedLabel.frame = CGRect(x: 270, y: 230, width: 300, height: 50)
+        connectedLabel.text = "Conectado como:"
+        connectedLabel.textColor = .black
+        connectedLabel.textAlignment = .left
+        connectedLabel.font = UIFont(name: "ChelseaMarket-Regular", size: 25)
+        connectedLabel.isHidden = true
+        view.addSubview(connectedLabel)
+        
+        backTextButton.frame = CGRect(x: 650, y: 300, width: 200, height: 50)
+        backTextButton.setTitle("Voltar", for: .normal)
+        backTextButton.setTitleColor(redColor, for: .normal)
+        backTextButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 15)
+        backTextButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        backTextButton.isHidden = true
+        view.addSubview(backTextButton)
+        
+        backIconButton.frame = CGRect(x: 685, y: 300, width: 200, height: 50)
+        backIconButton.setTitle(">", for: .normal) //substituir por icon
+        backIconButton.setTitleColor(redColor, for: .normal)
+        backIconButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 30)
+        backIconButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
+        backIconButton.isHidden = true
+        view.addSubview(backIconButton)
+        
+        pauseButton.frame = CGRect(x: 800, y: 35, width: 50, height: 50)
+        pauseButton.setImage(pauseIcon, for: .normal)
+        pauseButton.backgroundColor = .blue
+//        pauseButton.contentMode = .center
+        pauseButton.imageView?.contentMode = .scaleAspectFill
+//        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
+        pauseButton.addTarget(self, action: #selector(pauseButtonAction), for: .touchUpInside)
+        view.addSubview(pauseButton)
+        
+        popupSubview.frame = CGRect(x: 235, y: 90, width: 450, height: 220)
+        popupSubview.backgroundColor = .white
+        popupSubview.layer.cornerRadius = 40
+        popupSubview.isHidden = true
+        view.addSubview(popupSubview)
+        
+        continueButton.frame = CGRect(x: 360, y: 110, width: 200, height: 50)
+        continueButton.setTitle("Continuar", for: .normal)
+        continueButton.setTitleColor(.black, for: .normal)
+        continueButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 28)
+        continueButton.addTarget(self, action: #selector(continueButtonAction), for: .touchUpInside)
+        continueButton.isHidden = true
+        view.addSubview(continueButton)
+        
+        beginButton.frame = CGRect(x: 330, y: 155, width: 200, height: 50)
+        beginButton.setTitle("Início", for: .normal)
+        beginButton.setTitleColor(.black, for: .normal)
+        beginButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 28)
+        beginButton.addTarget(self, action: #selector(beginButtonAction), for: .touchUpInside)
+        beginButton.isHidden = true
+        view.addSubview(beginButton)
+        
+        soundPauseLabel.frame = CGRect(x: 390, y: 200, width: 200, height: 50)
+        soundPauseLabel.text = "Som:"
+        soundPauseLabel.textColor = .black
+        soundPauseLabel.textAlignment = .left
+        soundPauseLabel.font = UIFont(name: "ChelseaMarket-Regular", size: 28)
+        soundPauseLabel.isHidden = true
+        view.addSubview(soundPauseLabel)
+        
+        musicPauseLabel.frame = CGRect(x: 390, y: 245, width: 200, height: 50)
+        musicPauseLabel.text = "Música:"
+        musicPauseLabel.textColor = .black
+        musicPauseLabel.textAlignment = .left
+        musicPauseLabel.font = UIFont(name: "ChelseaMarket-Regular", size: 28)
+        musicPauseLabel.isHidden = true
+        view.addSubview(musicPauseLabel)
+        
+    }
+    
+    @objc func configButtonAction (sender: UIButton!) {
+        print("Pause button tapped")
+        configButton.isHidden = true
+        pauseButton.isHidden = true
+        blurSubview.isHidden = false
+        configLabel.isHidden = false
+        soundConfigLabel.isHidden = false
+        musicConfigLabel.isHidden = false
+        connectedLabel.isHidden = false
+        backTextButton.isHidden = false
+        backIconButton.isHidden = false
+    }
+    
+    @objc func backButtonAction (sender: UIButton!) {
+        print("Pause button tapped")
+        configButton.isHidden = false
+        pauseButton.isHidden = false
+        blurSubview.isHidden = true
+        configLabel.isHidden = true
+        soundConfigLabel.isHidden = true
+        musicConfigLabel.isHidden = true
+        connectedLabel.isHidden = true
+        backTextButton.isHidden = true
+        backIconButton.isHidden = true
+    }
+    
+    @objc func pauseButtonAction (sender: UIButton!) {
+        print("Pause button tapped")
+        configButton.isHidden = true
+        pauseButton.isHidden = true
+        blurSubview.isHidden = false
+        popupSubview.isHidden = false
+        continueButton.isHidden = false
+        beginButton.isHidden = false
+        soundPauseLabel.isHidden = false
+        musicPauseLabel.isHidden = false
+    }
+    
+    @objc func continueButtonAction (sender: UIButton!) {
+        print("Continue button tapped")
+        configButton.isHidden = false
+        pauseButton.isHidden = false
+        blurSubview.isHidden = true
+        popupSubview.isHidden = true
+        continueButton.isHidden = true
+        beginButton.isHidden = true
+        soundPauseLabel.isHidden = true
+        musicPauseLabel.isHidden = true
+        configLabel.isHidden = true
+        soundConfigLabel.isHidden = true
+        musicConfigLabel.isHidden = true
+        connectedLabel.isHidden = true
+        backTextButton.isHidden = true
+        backIconButton.isHidden = true
+    }
+    
+    @objc func beginButtonAction (sender: UIButton!) {
+        print("New game button tapped")
     }
     
     override func update(_ currentTime: TimeInterval) {
