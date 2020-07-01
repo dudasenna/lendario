@@ -11,7 +11,7 @@ import SpriteKit
 import GameplayKit
 
 
-class MaeDaguaScene: SKScene {
+class MaeDaguaFirstScene: SKScene {
     private var character = SKSpriteNode()
     var backgroundDayFloor = SKSpriteNode()
     var backgroundDayRiver = SKSpriteNode()
