@@ -84,8 +84,8 @@ class MaeDaguaFirstScene: SKScene {
         
         //Adiciona som de fundo
         if let musicURL = Bundle.main.url(forResource: "rio_passaros", withExtension: "wav") {
-           backgroundMusic = SKAudioNode(url: musicURL)
-           addChild(backgroundMusic)
+            backgroundMusic = SKAudioNode(url: musicURL)
+            addChild(backgroundMusic)
         }
         
         //Posiciona a personagem principal na cena
@@ -443,8 +443,8 @@ class MaeDaguaFirstScene: SKScene {
     }
     
     private func prepareForFishman(){
-        interrogationButton.isHidden = false
         secondSpeechFlag = 1
+        interrogationButton.isHidden = false
         character.isPaused = true
         self.scene?.isUserInteractionEnabled = false
     }
@@ -746,7 +746,7 @@ class MaeDaguaFirstScene: SKScene {
     }
     
     private func finishScene(){
-        let fadeOut = SKAction.fadeOut(withDuration: 1)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.3)
         
         nextLineGirlButton.removeFromSuperview()
         nextLineFishmanButton.removeFromSuperview()
@@ -755,11 +755,15 @@ class MaeDaguaFirstScene: SKScene {
         character.isPaused = true
         self.scene?.isUserInteractionEnabled = false
         
-        character.run(fadeOut)
+        character.run(fadeOut){
+            self.character.isHidden = true
+        }
         fishman.run(fadeOut){
-            self.backgroundDayFloor.run(fadeOut){
-                self.view?.presentScene(MaeDaguaSecondScene(size: self.size))
-            }
+            self.fishman.isHidden = true
+        }
+        backgroundDayFloor.run(fadeOut){
+            self.backgroundDayFloor.isHidden = true
+            self.view?.presentScene(MaeDaguaSecondScene(size: self.size))
         }
     }
 }
