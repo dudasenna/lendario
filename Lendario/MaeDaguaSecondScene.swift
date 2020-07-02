@@ -35,6 +35,7 @@ class MaeDaguaSecondScene: SKScene {
        private var nextLineFishmanButton = UIButton()
     
     private var flagBoat = false
+    private var btnSpeech = SKSpriteNode()
        
        private var charWalkingFrames: [SKTexture] = []
        private var fishmanWalkingFrames: [SKTexture] = []
@@ -150,6 +151,11 @@ class MaeDaguaSecondScene: SKScene {
            fishmanSpeechBubble.zPosition = 1
            fishmanSpeechBubble.isHidden = true
            self.addChild(fishmanSpeechBubble)
+        
+   
+        
+        
+        
            
          
     }
@@ -166,6 +172,8 @@ class MaeDaguaSecondScene: SKScene {
         //Define a velocidade da personagem (andando pra frente - 200 -, pra trás - -200 - ou parada)
         character.physicsBody?.velocity.dx = charVelocity
         fishman.physicsBody?.velocity.dx = charVelocity
+        boatChar.physicsBody?.velocity.dx = charVelocity
+
     }
     
     //Coloca a câmera para "seguir a personagem pela cena"
@@ -203,7 +211,8 @@ class MaeDaguaSecondScene: SKScene {
             
             //Define a distância que o personagem irá percorrer, baseada no clique
             let moveDifference = CGFloat(location.x - character.position.x)
-            
+           // let moveDifferenceBoat = CGFloat(location.x - boatChar.position.x)
+
             //Checa se o clique foi à esquerda ou à direita da posição atual do personagem
             if moveDifference < 0 {
                 charVelocity = -200
@@ -214,7 +223,13 @@ class MaeDaguaSecondScene: SKScene {
             }
             
             character.xScale = abs(character.xScale) * multiplierForDirection
-            fishman.xScale = abs(fishman.xScale) * multiplierForDirection
+                           fishman.xScale = abs(fishman.xScale) * multiplierForDirection
+            
+            if flagBoat{
+                let moveAction = SKAction.moveTo(x: character.position.x * multiplierForDirection, duration: 0.5)
+                //boatChar.xScale = abs(boatChar.xScale) * multiplierForDirection
+                boatChar.run(moveAction)
+            }
         }
         
     }
@@ -229,6 +244,7 @@ class MaeDaguaSecondScene: SKScene {
             self.boatChar.isHidden = false
             self.sign.isHidden = true
             self.run(SKAction.fadeIn(withDuration: 0.1))
+            self.flagBoat = true
         }
             
        
