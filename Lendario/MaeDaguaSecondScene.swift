@@ -21,6 +21,20 @@ class MaeDaguaSecondScene: SKScene {
        private var boat = SKSpriteNode()
        private var boatChar = SKSpriteNode()
     private var sign = SKSpriteNode()
+    private var girlSpeechBubble = SKSpriteNode()
+       private var fishmanSpeechBubble = SKSpriteNode()
+       
+       private var girlSpeechLine = SKLabelNode()
+       private var fishmanSpeechLine = SKLabelNode()
+       
+       //Flags
+       var secondSpeechFlag = 0
+       var currentLine = 0
+       
+    private var nextLineGirlButton = UIButton()
+       private var nextLineFishmanButton = UIButton()
+    
+    private var flagBoat = false
        
        private var charWalkingFrames: [SKTexture] = []
        private var fishmanWalkingFrames: [SKTexture] = []
@@ -28,6 +42,10 @@ class MaeDaguaSecondScene: SKScene {
        private let cam = SKCameraNode()
        
        private var charVelocity: CGFloat = 0
+    
+    
+    private let phrasesChar = ["O que quer dizer com isso?","Irritado? Como um rio poderia estar irritado?","Mãe D'Agua deve ser uma das lendas que estava falando","Mas o que acontece com quem está no rio nesse momento?","Você parece ter bastante medo disso tudo, alguma vez já viu acontecer?","Se está tão preocupado, tudo bem."]
+    private let phrasesFishman = ["Tem algo estranho nesse dia..","Primeiro você aparece, agora o rio parece irritado","A Mãe D'Agua tem seu temperamento, é ela que dá vida a tudo isso.","Lenda?! Isso vai bem além de uma lenda"]
     
     
     override func didMove(to view: SKView) {
@@ -82,6 +100,16 @@ class MaeDaguaSecondScene: SKScene {
         boat.isUserInteractionEnabled = false
         self.addChild(boat)
         
+        boatChar = SKSpriteNode(imageNamed: "barco_personagens")
+        boatChar.anchorPoint = .zero
+        boatChar.size = CGSize(width: 328, height: 121)
+        boatChar.position = CGPoint(x: frame.width/3, y: 40)
+        boatChar.zPosition = 1
+        boatChar.name = "boat"
+        boatChar.isUserInteractionEnabled = false
+        boatChar.isHidden = true
+        self.addChild(boatChar)
+        
         sign = SKSpriteNode(imageNamed: "seta")
         sign.anchorPoint = .zero
         sign.position = CGPoint(x: 1.5*frame.width/3, y: boat.size.height+40)
@@ -93,6 +121,37 @@ class MaeDaguaSecondScene: SKScene {
                  SKAction.fadeAlpha(by: 0.5, duration: 0.9),
              ])
         sign.run(SKAction.repeatForever(pulseAction))
+        
+        
+        girlSpeechBubble = SKSpriteNode(imageNamed: "balaoFala")
+           girlSpeechBubble.size = CGSize(width: frame.width * 0.3, height: frame.height * 0.3)
+           girlSpeechBubble.position = CGPoint(x: boatChar.position.x + girlSpeechBubble.size.width/2, y: frame.height * 0.8)
+           girlSpeechBubble.zPosition = 1
+        girlSpeechBubble.isHidden = true
+           self.addChild(girlSpeechBubble)
+           
+           girlSpeechLine.text = "Nossa, onde será que eu estou, nesse lugar tão deserto?!"
+           girlSpeechLine.preferredMaxLayoutWidth = girlSpeechBubble.size.width - 20
+           girlSpeechLine.fontName = "ChelseaMarket-Regular"
+           girlSpeechLine.fontSize = 15
+           girlSpeechLine.fontColor = .black
+           girlSpeechLine.numberOfLines = 3
+           girlSpeechLine.horizontalAlignmentMode = .center
+           girlSpeechLine.position = CGPoint(x: girlSpeechBubble.position.x, y: girlSpeechBubble.position.y * 0.98)
+           girlSpeechLine.zPosition = 2
+           currentLine = 1
+        girlSpeechLine.isHidden = true
+        
+           self.addChild(girlSpeechLine)
+           
+           fishmanSpeechBubble = SKSpriteNode(imageNamed: "SpeechBubble")
+           fishmanSpeechBubble.size = CGSize(width: frame.width * 0.25, height: frame.height * 0.3)
+           fishmanSpeechBubble.position = CGPoint(x: fishman.position.x + fishmanSpeechBubble.size.width/2 + 20, y: frame.height * 0.79)
+           fishmanSpeechBubble.zPosition = 1
+           fishmanSpeechBubble.isHidden = true
+           self.addChild(fishmanSpeechBubble)
+           
+         
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -128,9 +187,10 @@ class MaeDaguaSecondScene: SKScene {
             if name == "boat"
             {
                 print("Touched")
+                sailing()
             }
         }
-        
+
         
         //A personagem só se movimenta pra ambos os lados se sua posição for maior do que a inicial, se for menor, ela só pode ir para frente
         if character.position.x > 0 || location.x > character.position.x{
@@ -156,11 +216,31 @@ class MaeDaguaSecondScene: SKScene {
             character.xScale = abs(character.xScale) * multiplierForDirection
             fishman.xScale = abs(fishman.xScale) * multiplierForDirection
         }
+        
+    }
+    
+    private func sailing(){
+        let charDisappear = SKAction.fadeOut(withDuration: 0.1)
+        self.run(charDisappear){
+            
+            self.character.isHidden = true
+            self.fishman.isHidden = true
+            self.boat.isHidden = true
+            self.boatChar.isHidden = false
+            self.sign.isHidden = true
+            self.run(SKAction.fadeIn(withDuration: 0.1))
+        }
+            
+       
+        
+            
+        
     }
     
     //Ao retirar o dedo da tela, o movimento para
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         charVelocity = 0
+        
         charMoveEnded()
         fishmanMoveEnded()
     }
