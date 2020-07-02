@@ -18,14 +18,14 @@ class MaeDaguaFirstScene: SKScene {
     private var backgroundDayRiver = SKSpriteNode()
     private var backgroundNightFloor = SKSpriteNode()
     private var backgroundNightRiver = SKSpriteNode()
-    private var speechBubble = SKSpriteNode()
+    private var girlSpeechBubble = SKSpriteNode()
+    private var fishmanSpeechBubble = SKSpriteNode()
     
-    private var speechLine = SKLabelNode()
+    private var girlSpeechLine = SKLabelNode()
+    private var fishmanSpeechLine = SKLabelNode()
     
     //Flags
-    var firstSpeechFlag = 0
     var secondSpeechFlag = 0
-    var finalSpeechFlag = 0
     var currentLine = 0
     
     private var charWalkingFrames: [SKTexture] = []
@@ -93,58 +93,59 @@ class MaeDaguaFirstScene: SKScene {
         //Posiciona pescador na cena
         buildFishman(positionX: backgroundDayFloor.size.width)
         
-        //background setup
-        backgroundDayRiver = SKSpriteNode(imageNamed: "CenarioDia2")
-        backgroundDayRiver.anchorPoint = .zero
-        backgroundDayRiver.position = CGPoint(x: -frame.width/2, y: 0)
-        backgroundDayRiver.zPosition = 0
-        backgroundDayRiver.isHidden = true
-        self.addChild(backgroundDayRiver)
+        girlSpeechBubble = SKSpriteNode(imageNamed: "SpeechBubble")
+        girlSpeechBubble.size = CGSize(width: frame.width * 0.3, height: frame.height * 0.3)
+        girlSpeechBubble.position = CGPoint(x: character.position.x + girlSpeechBubble.size.width/2, y: frame.height * 0.8)
+        girlSpeechBubble.zPosition = 1
+        self.addChild(girlSpeechBubble)
         
-        //background setup
-        backgroundNightFloor = SKSpriteNode(imageNamed: "CenarioNoite2")
-        backgroundNightFloor.anchorPoint = .zero
-        backgroundNightFloor.position = CGPoint(x: -frame.width/2, y: 0)
-        backgroundNightFloor.zPosition = 0
-        backgroundNightFloor.isHidden = true
-        self.addChild(backgroundNightFloor)
-        
-        backgroundNightRiver = SKSpriteNode(imageNamed: "CenarioNoite1")
-        backgroundNightRiver.anchorPoint = .zero
-        backgroundNightRiver.position = CGPoint(x: -frame.width/2, y: 0)
-        backgroundNightRiver.zPosition = 0
-        backgroundNightRiver.isHidden = true
-        self.addChild(backgroundNightRiver)
-        
-        speechBubble = SKSpriteNode(imageNamed: "SpeechBubble")
-        speechBubble.size = CGSize(width: frame.width * 0.3, height: frame.height * 0.3)
-        speechBubble.position = CGPoint(x: character.position.x + speechBubble.size.width/2, y: frame.height * 0.8)
-        speechBubble.zPosition = 1
-        self.addChild(speechBubble)
-        
-        speechLine.text = "Nossa, onde será que eu estou, nesse lugar tão deserto?!"
-        speechLine.preferredMaxLayoutWidth = speechBubble.size.width - 20
-        speechLine.fontName = "ChelseaMarket-Regular"
-        speechLine.fontSize = 15
-        speechLine.fontColor = .black
-        speechLine.numberOfLines = 3
-        speechLine.horizontalAlignmentMode = .center
-        speechLine.position = CGPoint(x: speechBubble.position.x, y: speechBubble.position.y * 0.98)
-        speechLine.zPosition = 2
+        girlSpeechLine.text = "Nossa, onde será que eu estou, nesse lugar tão deserto?!"
+        girlSpeechLine.preferredMaxLayoutWidth = girlSpeechBubble.size.width - 20
+        girlSpeechLine.fontName = "ChelseaMarket-Regular"
+        girlSpeechLine.fontSize = 15
+        girlSpeechLine.fontColor = .black
+        girlSpeechLine.numberOfLines = 3
+        girlSpeechLine.horizontalAlignmentMode = .center
+        girlSpeechLine.position = CGPoint(x: girlSpeechBubble.position.x, y: girlSpeechBubble.position.y * 0.98)
+        girlSpeechLine.zPosition = 2
         currentLine = 1
-        self.addChild(speechLine)
+        self.addChild(girlSpeechLine)
+        
+        fishmanSpeechBubble = SKSpriteNode(imageNamed: "SpeechBubble")
+        fishmanSpeechBubble.size = CGSize(width: frame.width * 0.25, height: frame.height * 0.3)
+        fishmanSpeechBubble.position = CGPoint(x: fishman.position.x + fishmanSpeechBubble.size.width/2 + 20, y: frame.height * 0.79)
+        fishmanSpeechBubble.zPosition = 1
+        fishmanSpeechBubble.isHidden = true
+        self.addChild(fishmanSpeechBubble)
+        
+        fishmanSpeechLine.text = "Opa, tá tudo bem com você? Parece que viu uma assombração…"
+        fishmanSpeechLine.preferredMaxLayoutWidth = fishmanSpeechBubble.size.width - 20
+        fishmanSpeechLine.fontName = "ChelseaMarket-Regular"
+        fishmanSpeechLine.fontSize = 15
+        fishmanSpeechLine.fontColor = .black
+        fishmanSpeechLine.numberOfLines = 3
+        fishmanSpeechLine.horizontalAlignmentMode = .center
+        fishmanSpeechLine.position = CGPoint(x: fishmanSpeechBubble.position.x, y: fishmanSpeechBubble.position.y * 0.98)
+        fishmanSpeechLine.zPosition = 2
+        fishmanSpeechLine.isHidden = true
+        self.addChild(fishmanSpeechLine)
         
         nextLineGirlButton.setImage(UIImage(named: "NextSign"), for: .normal)
-        nextLineGirlButton.frame = CGRect(x: frame.midX + speechBubble.size.width - 30, y: size.height * 0.19, width: 20, height: 22)
+        nextLineGirlButton.frame = CGRect(x: frame.midX + girlSpeechBubble.size.width - 30, y: size.height * 0.19, width: 20, height: 22)
         nextLineGirlButton.addTarget(self, action: #selector(firstSpeech), for: .touchUpInside)
         view.addSubview(nextLineGirlButton)
         
         interrogationButton.setImage(UIImage(named: "interrogation"), for: .normal)
         interrogationButton.frame = CGRect(x: size.width/2 + character.size.width - 20, y: size.height * 0.19, width: 100, height: 100)
-        print(interrogationButton.frame)
         interrogationButton.addTarget(self, action: #selector(fishmanDialogue), for: .touchUpInside)
         interrogationButton.isHidden = true
         view.addSubview(interrogationButton)
+        
+        nextLineFishmanButton.setImage(UIImage(named: "NextSign"), for: .normal)
+        nextLineFishmanButton.frame = CGRect(x: frame.midX + fishmanSpeechBubble.size.width * 1.3 , y: size.height * 0.2, width: 20, height: 22)
+        nextLineFishmanButton.addTarget(self, action: #selector(secondSpeech), for: .touchUpInside)
+        nextLineFishmanButton.isHidden = true
+        view.addSubview(nextLineFishmanButton)
         
         blurSubview.frame = view.bounds
         blurSubview.backgroundColor = UIColor(white: 1, alpha: 0.7)
@@ -435,46 +436,321 @@ class MaeDaguaFirstScene: SKScene {
     private func prepareForFishman(){
         interrogationButton.isHidden = false
         secondSpeechFlag = 1
-        //character.isPaused = true
-        //self.scene?.isUserInteractionEnabled = false
+        character.isPaused = true
+        self.scene?.isUserInteractionEnabled = false
     }
     
     @IBAction private func firstSpeech(){
         if currentLine == 1{
-            speechLine.run(SKAction.fadeOut(withDuration: 0.3)){
-                self.speechLine.position.y = self.speechLine.position.y - 10
-                self.speechLine.text = "Eu apenas tentei começar um jogo e acordei na beira desse rio…"
-                self.speechLine.run(SKAction.fadeIn(withDuration: 0.3))
+            girlSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.girlSpeechLine.position.y = self.girlSpeechLine.position.y - 10
+                self.girlSpeechLine.text = "Eu apenas tentei começar um jogo e acordei na beira desse rio…"
+                self.girlSpeechLine.run(SKAction.fadeIn(withDuration: 0.3))
             }
             currentLine = 2
         } else if currentLine == 2{
-            speechLine.run(SKAction.fadeOut(withDuration: 0.3)){
-                self.speechLine.text = "Acho que é melhor eu começar a andar e procurar alguém que me explique onde estou."
-                self.speechLine.run(SKAction.fadeIn(withDuration: 0.3))
+            girlSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.girlSpeechLine.text = "Acho que é melhor eu começar a andar e procurar alguém que me explique onde estou."
+                self.girlSpeechLine.run(SKAction.fadeIn(withDuration: 0.3))
             }
             currentLine = 3
         } else if currentLine == 3{
-            speechLine.run(SKAction.fadeOut(withDuration: 0.3)){
-                self.speechLine.isHidden = true
+            girlSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.girlSpeechLine.isHidden = true
             }
-            speechBubble.run(SKAction.fadeOut(withDuration: 0.3)){
-                self.speechBubble.isHidden = true
+            girlSpeechBubble.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.girlSpeechBubble.isHidden = true
                 self.nextLineGirlButton.isHidden = true
                 self.scene?.isUserInteractionEnabled = true
             }
+            nextLineGirlButton.removeTarget(self, action: #selector(firstSpeech), for: .touchUpInside)
+            nextLineGirlButton.addTarget(self, action: #selector(secondSpeechGirl), for: .touchUpInside)
             currentLine = 0
         }
         
     }
     
     @IBAction private func fishmanDialogue(){
-        
+        fishmanSpeechBubble.isHidden = false
+        fishmanSpeechLine.isHidden = false
+        nextLineFishmanButton.isHidden = false
+        interrogationButton.isHidden = true
     }
     
-    @IBAction private func finishScene(){
-        finalSpeechFlag = 1
+    @IBAction private func secondSpeech(){
+        let fadeOutAction = SKAction.fadeOut(withDuration: 0.3)
+        let fadeInAction = SKAction.fadeIn(withDuration: 0.3)
+        if currentLine == 0 {
+            girlSpeechBubble.xScale = girlSpeechBubble.xScale * (-1)
+            girlSpeechBubble.position = CGPoint(x: character.position.x - girlSpeechBubble.size.width/2 - 20, y: frame.height * 0.8)
+            girlSpeechLine.text = "Eu não sei que lugar é esse, eu apenas acordei na beira desse rio que nunca vi."
+            girlSpeechLine.position = CGPoint(x: girlSpeechBubble.position.x, y: girlSpeechBubble.position.y * 0.98)
+            nextLineGirlButton.frame = CGRect(x: frame.midX - character.size.width, y: size.height * 0.22, width: 20, height: 22)
+            
+            nextLineFishmanButton.isHidden = true
+            fishmanSpeechLine.run(fadeOutAction)
+            fishmanSpeechBubble.run(fadeOutAction){
+                self.fishmanSpeechBubble.isHidden = true
+                self.girlSpeechLine.isHidden = false
+                self.girlSpeechLine.run(fadeInAction)
+                self.girlSpeechBubble.isHidden = false
+                self.girlSpeechBubble.run(fadeInAction)
+                self.nextLineGirlButton.isHidden = false
+            }
+            
+            currentLine = 1
+            
+        } else if currentLine == 2{
+            fishmanSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                //self.fishmanSpeechLine.position.y = self.girlSpeechLine.position.y - 10
+                self.fishmanSpeechLine.text = "Meu nome é João, e esse é o Rio São Francisco."
+                self.fishmanSpeechLine.run(fadeInAction)
+            }
+            
+            currentLine = 3
+            
+        } else if currentLine == 3{
+            girlSpeechLine.text = "O meu é Tina, você conhece esse lugar?? Pode me ajudar??"
+            girlSpeechLine.position.y = girlSpeechLine.position.y + 10
+            
+            nextLineFishmanButton.isHidden = true
+            fishmanSpeechLine.run(fadeOutAction)
+            fishmanSpeechBubble.run(fadeOutAction){
+                self.fishmanSpeechBubble.isHidden = true
+                self.girlSpeechLine.isHidden = false
+                self.girlSpeechLine.run(fadeInAction)
+                self.girlSpeechBubble.isHidden = false
+                self.girlSpeechBubble.run(fadeInAction)
+                self.nextLineGirlButton.isHidden = false
+            }
+            
+            currentLine = 4
+            
+        } else if currentLine == 5{
+            girlSpeechLine.text = "Fala dele como se fosse uma pessoa?"
+            
+            nextLineFishmanButton.isHidden = true
+            fishmanSpeechLine.run(fadeOutAction)
+            fishmanSpeechBubble.run(fadeOutAction){
+                self.fishmanSpeechBubble.isHidden = true
+                self.girlSpeechLine.isHidden = false
+                self.girlSpeechLine.run(fadeInAction)
+                self.girlSpeechBubble.isHidden = false
+                self.girlSpeechBubble.run(fadeInAction)
+                self.nextLineGirlButton.isHidden = false
+            }
+            
+            currentLine = 6
+            
+        } else if currentLine == 7{
+            fishmanSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                //self.fishmanSpeechLine.position.y = self.girlSpeechLine.position.y - 10
+                self.fishmanSpeechLine.text = "E foi assim também pra meus pais e meus avós antes deles."
+                self.fishmanSpeechLine.run(fadeInAction)
+            }
+            
+            currentLine = 8
+            
+        } else if currentLine == 8{
+            fishmanSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                //self.fishmanSpeechLine.position.y = self.girlSpeechLine.position.y - 10
+                self.fishmanSpeechLine.text = "Em cada um de nós vive um pouco dele..."
+                self.fishmanSpeechLine.run(fadeInAction)
+            }
+            
+            currentLine = 9
+            
+        } else if currentLine == 9{
+            fishmanSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                //self.fishmanSpeechLine.position.y = self.girlSpeechLine.position.y - 10
+                self.fishmanSpeechLine.text = "Assim como nele vive um pouquinho da gente..."
+                self.fishmanSpeechLine.run(fadeInAction)
+            }
+            
+            currentLine = 10
+            
+        } else if currentLine == 10{
+            fishmanSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                //self.fishmanSpeechLine.position.y = self.girlSpeechLine.position.y - 10
+                self.fishmanSpeechLine.text = "E algumas outras coisas mais…"
+                self.fishmanSpeechLine.run(fadeInAction)
+            }
+            
+            currentLine = 11
+            
+        } else if currentLine == 11{
+            //girlSpeechLine.position.y = girlSpeechLine.position.y + 10
+            girlSpeechLine.text = "Outras coisas?"
+            
+            nextLineFishmanButton.isHidden = true
+            fishmanSpeechLine.run(fadeOutAction)
+            fishmanSpeechBubble.run(fadeOutAction){
+                self.fishmanSpeechBubble.isHidden = true
+                self.girlSpeechLine.isHidden = false
+                self.girlSpeechLine.run(fadeInAction)
+                self.girlSpeechBubble.isHidden = false
+                self.girlSpeechBubble.run(fadeInAction)
+                self.nextLineGirlButton.isHidden = false
+            }
+            
+            currentLine = 12
+            
+        } else if currentLine == 13{
+            fishmanSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                //self.fishmanSpeechLine.position.y = self.girlSpeechLine.position.y - 10
+                self.fishmanSpeechLine.text = "Eu vou indo antes que fique muito tarde..."
+                self.fishmanSpeechLine.run(fadeInAction)
+            }
+            
+            currentLine = 14
+            
+        } else if currentLine == 14{
+            fishmanSpeechLine.run(SKAction.fadeOut(withDuration: 0.3)){
+                self.fishmanSpeechLine.position.y = self.fishmanSpeechLine.position.y + 10
+                self.fishmanSpeechLine.text = "Tem um lugar no meu barco pra você se quiser."
+                self.fishmanSpeechLine.run(fadeInAction)
+            }
+            
+            currentLine = 15
+            
+        } else if currentLine == 15{
+            girlSpeechLine.text = "Ah! Eu quero sim, e no caminho você pode me falar sobre essas outras coisas?"
+            girlSpeechLine.position.y = girlSpeechLine.position.y - 10
+            
+            nextLineFishmanButton.isHidden = true
+            fishmanSpeechLine.run(fadeOutAction)
+            fishmanSpeechBubble.run(fadeOutAction){
+                self.fishmanSpeechBubble.isHidden = true
+                self.girlSpeechLine.isHidden = false
+                self.girlSpeechLine.run(fadeInAction)
+                self.girlSpeechBubble.isHidden = false
+                self.girlSpeechBubble.run(fadeInAction)
+                self.nextLineGirlButton.isHidden = false
+            }
+            
+            currentLine = 16
+            
+        } else if currentLine == 17{
+            nextLineFishmanButton.isHidden = true
+            nextLineGirlButton.isHidden = true
+            
+            girlSpeechLine.run(fadeOutAction){
+                self.girlSpeechLine.isHidden = true
+                self.girlSpeechBubble.run(fadeOutAction)
+                self.girlSpeechBubble.isHidden = true
+            }
+            
+            fishmanSpeechLine.run(fadeOutAction){
+                self.fishmanSpeechLine.isHidden = true
+                self.fishmanSpeechBubble.run(fadeOutAction)
+                self.fishmanSpeechBubble.isHidden = true
+                self.finishScene()
+            }
+        }
+    }
+    
+    @IBAction private func secondSpeechGirl(){
+        let fadeOutAction = SKAction.fadeOut(withDuration: 0.3)
+        let fadeInAction = SKAction.fadeIn(withDuration: 0.3)
+        
+        if currentLine == 1{
+            fishmanSpeechLine.text = "Tá aí algo que num se ouve todo dia."
+            
+            nextLineGirlButton.isHidden = true
+            girlSpeechLine.run(fadeOutAction)
+            girlSpeechBubble.run(fadeOutAction){
+                self.girlSpeechBubble.isHidden = true
+                self.fishmanSpeechLine.isHidden = false
+                self.fishmanSpeechLine.run(fadeInAction)
+                self.fishmanSpeechBubble.isHidden = false
+                self.fishmanSpeechBubble.run(fadeInAction)
+                self.nextLineFishmanButton.isHidden = false
+            }
+            
+            currentLine = 2
+        } else if currentLine == 4{
+            fishmanSpeechLine.text = "Conheço bastante e o velho Chico é meu amigo de infância."
+            
+            nextLineGirlButton.isHidden = true
+            girlSpeechLine.run(fadeOutAction)
+            girlSpeechBubble.run(fadeOutAction){
+                self.girlSpeechBubble.isHidden = true
+                self.fishmanSpeechLine.isHidden = false
+                self.fishmanSpeechLine.run(fadeInAction)
+                self.fishmanSpeechBubble.isHidden = false
+                self.fishmanSpeechBubble.run(fadeInAction)
+                self.nextLineFishmanButton.isHidden = false
+            }
+            
+            currentLine = 5
+            
+        } else if currentLine == 6{
+            fishmanSpeechLine.text = "Compartilho minha vida com essas águas há muito tempo..."
+            
+            nextLineGirlButton.isHidden = true
+            girlSpeechLine.run(fadeOutAction)
+            girlSpeechBubble.run(fadeOutAction){
+                self.girlSpeechBubble.isHidden = true
+                self.fishmanSpeechLine.isHidden = false
+                self.fishmanSpeechLine.run(fadeInAction)
+                self.fishmanSpeechBubble.isHidden = false
+                self.fishmanSpeechBubble.run(fadeInAction)
+                self.nextLineFishmanButton.isHidden = false
+            }
+            
+            currentLine = 7
+            
+        } else if currentLine == 12{
+            fishmanSpeechLine.text = "Sim, mas já tá escurecendo, num é hora pra isso não..."
+            
+            nextLineGirlButton.isHidden = true
+            girlSpeechLine.run(fadeOutAction)
+            girlSpeechBubble.run(fadeOutAction){
+                self.girlSpeechBubble.isHidden = true
+                self.fishmanSpeechLine.isHidden = false
+                self.fishmanSpeechLine.run(fadeInAction)
+                self.fishmanSpeechBubble.isHidden = false
+                self.fishmanSpeechBubble.run(fadeInAction)
+                self.nextLineFishmanButton.isHidden = false
+            }
+            
+            currentLine = 13
+            
+        } else if currentLine == 16{
+            fishmanSpeechLine.text = "Tá certo! Vamos subir no meu barco e seguir nosso rumo, porque daqui a pouco escurece."
+            fishmanSpeechLine.position.y = fishmanSpeechLine.position.y - 30
+            
+            nextLineGirlButton.isHidden = true
+            girlSpeechLine.run(fadeOutAction)
+            girlSpeechBubble.run(fadeOutAction){
+                self.girlSpeechBubble.isHidden = true
+                self.fishmanSpeechLine.isHidden = false
+                self.fishmanSpeechLine.run(fadeInAction)
+                self.fishmanSpeechBubble.isHidden = false
+                self.fishmanSpeechBubble.run(fadeInAction)
+                self.nextLineFishmanButton.isHidden = false
+            }
+            
+            currentLine = 17
+            
+        }
+    }
+    
+    private func finishScene(){
+        let fadeOut = SKAction.fadeOut(withDuration: 1)
+        
+        nextLineGirlButton.removeFromSuperview()
+        nextLineFishmanButton.removeFromSuperview()
+        interrogationButton.removeFromSuperview()
+        
         character.isPaused = true
         self.scene?.isUserInteractionEnabled = false
+        
+        character.run(fadeOut)
+        fishman.run(fadeOut){
+            self.backgroundDayFloor.run(fadeOut){
+                self.view?.presentScene(MaeDaguaSecondScene(size: self.size))
+            }
+        }
     }
 }
-
