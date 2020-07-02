@@ -179,6 +179,11 @@ class MaeDaguaSecondScene: SKScene {
     //Coloca a câmera para "seguir a personagem pela cena"
     override func didSimulatePhysics() {
         self.camera!.position = character.position
+        
+        if boatChar.isHidden == false {
+            self.camera!.position.y = frame.midY
+            self.camera!.position.x = boatChar.position.x
+        }
     }
     
     //Chamada quando um toque na tela é identificado

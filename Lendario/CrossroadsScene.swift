@@ -184,7 +184,7 @@ class CrossroadsScene: SKScene {
         sun.run(finalAction){
             self.sun.isHidden = true
             //Chama a cena de escolha da Lenda
-            self.view?.presentScene(MaeDaguaFirstScene(size: self.size))
+            self.view?.presentScene(MaeDaguaSecondScene(size: self.size))
         }
     }
     
