@@ -64,7 +64,9 @@ class MaeDaguaFirstScene: SKScene {
     let configButton = UIButton()
     let configLabel = UILabel()
     let soundConfigLabel = UILabel()
+    let soundConfigButton = UIButton()
     let musicConfigLabel = UILabel()
+    let musicConfigButton = UIButton()
     let connectedLabel = UILabel()
     let backTextButton = UIButton()
     let backIconButton = UIButton()
@@ -74,8 +76,13 @@ class MaeDaguaFirstScene: SKScene {
     let continueButton = UIButton()
     let beginButton = UIButton()
     let soundPauseLabel = UILabel()
+    let soundPauseButton = UIButton()
     let musicPauseLabel = UILabel()
+    let musicPauseButton = UIButton()
     let pauseIcon = UIImage(named: "pauseIcon.png")
+    let configIcon = UIImage(named: "configIcon.png")
+    let soundIcon = UIImage(named: "soundIcon.png")
+    let musicIcon = UIImage(named: "musicIcon.png")
     
     override func didMove(to view: SKView) {
         self.anchorPoint = .zero
@@ -162,12 +169,12 @@ class MaeDaguaFirstScene: SKScene {
         blurSubview.isHidden = true
         view.addSubview(blurSubview)
         
-        configButton.frame = CGRect(x: 100, y: 35, width: 50, height: 50)
-        //        configButton.setImage(configIcon, for: .normal)
-        configButton.backgroundColor = .blue
-        //        pauseButton.contentMode = .center
-        //        configButton.imageView?.contentMode = .scaleAspectFill
-        //        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
+        configButton.frame = CGRect(x: 80, y: 25, width: 50, height: 50)
+        configButton.setImage(configIcon, for: .normal)
+        configButton.contentVerticalAlignment = .fill
+        configButton.contentHorizontalAlignment = .fill
+        configButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+        configButton.imageView?.contentMode = .scaleAspectFill
         configButton.addTarget(self, action: #selector(configButtonAction), for: .touchUpInside)
         view.addSubview(configButton)
         
@@ -187,6 +194,16 @@ class MaeDaguaFirstScene: SKScene {
         soundConfigLabel.isHidden = true
         view.addSubview(soundConfigLabel)
         
+        soundConfigButton.frame = CGRect(x: 330, y: 137, width: 40, height: 40)
+        soundConfigButton.setImage(soundIcon, for: .normal)
+        soundConfigButton.contentVerticalAlignment = .fill
+        soundConfigButton.contentHorizontalAlignment = .fill
+        soundConfigButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+        soundConfigButton.imageView?.contentMode = .scaleAspectFill
+        soundConfigButton.addTarget(self, action: #selector(soundConfigButtonAction), for: .touchUpInside)
+        soundConfigButton.isHidden = true
+        view.addSubview(soundConfigButton)
+        
         musicConfigLabel.frame = CGRect(x: 270, y: 180, width: 200, height: 50)
         musicConfigLabel.text = "Música:"
         musicConfigLabel.textColor = .black
@@ -194,6 +211,16 @@ class MaeDaguaFirstScene: SKScene {
         musicConfigLabel.font = UIFont(name: "ChelseaMarket-Regular", size: 25)
         musicConfigLabel.isHidden = true
         view.addSubview(musicConfigLabel)
+        
+        musicConfigButton.frame = CGRect(x: 370, y: 185, width: 40, height: 40)
+        musicConfigButton.setImage(musicIcon, for: .normal)
+        musicConfigButton.contentVerticalAlignment = .fill
+        musicConfigButton.contentHorizontalAlignment = .fill
+        musicConfigButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+        musicConfigButton.imageView?.contentMode = .scaleAspectFill
+        musicConfigButton.addTarget(self, action: #selector(musicConfigButtonAction), for: .touchUpInside)
+        musicConfigButton.isHidden = true
+        view.addSubview(musicConfigButton)
         
         connectedLabel.frame = CGRect(x: 270, y: 230, width: 300, height: 50)
         connectedLabel.text = "Conectado como:"
@@ -219,9 +246,11 @@ class MaeDaguaFirstScene: SKScene {
         backIconButton.isHidden = true
         view.addSubview(backIconButton)
         
-        pauseButton.frame = CGRect(x: 800, y: 35, width: 50, height: 50)
+        pauseButton.frame = CGRect(x: 790, y: 25, width: 50, height: 50)
         pauseButton.setImage(pauseIcon, for: .normal)
-        pauseButton.backgroundColor = .blue
+        pauseButton.contentVerticalAlignment = .fill
+        pauseButton.contentHorizontalAlignment = .fill
+        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         //        pauseButton.contentMode = .center
         pauseButton.imageView?.contentMode = .scaleAspectFill
         //        pauseButton.imageEdgeInsets = UIEdgeInsets(top: 25,left: 25,bottom: 25,right: 25)
@@ -258,6 +287,16 @@ class MaeDaguaFirstScene: SKScene {
         soundPauseLabel.isHidden = true
         view.addSubview(soundPauseLabel)
         
+        soundPauseButton.frame = CGRect(x: 455, y: 207, width: 40, height: 40)
+        soundPauseButton.setImage(soundIcon, for: .normal)
+        soundPauseButton.contentVerticalAlignment = .fill
+        soundPauseButton.contentHorizontalAlignment = .fill
+        soundPauseButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+        soundPauseButton.imageView?.contentMode = .scaleAspectFill
+        soundPauseButton.addTarget(self, action: #selector(soundPauseButtonAction), for: .touchUpInside)
+        soundPauseButton.isHidden = true
+        view.addSubview(soundPauseButton)
+        
         musicPauseLabel.frame = CGRect(x: 390, y: 245, width: 200, height: 50)
         musicPauseLabel.text = "Música:"
         musicPauseLabel.textColor = .black
@@ -266,10 +305,20 @@ class MaeDaguaFirstScene: SKScene {
         musicPauseLabel.isHidden = true
         view.addSubview(musicPauseLabel)
         
+        musicPauseButton.frame = CGRect(x: 495, y: 250, width: 40, height: 40)
+        musicPauseButton.setImage(musicIcon, for: .normal)
+        musicPauseButton.contentVerticalAlignment = .fill
+        musicPauseButton.contentHorizontalAlignment = .fill
+        musicPauseButton.imageEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
+        musicPauseButton.imageView?.contentMode = .scaleAspectFill
+        musicPauseButton.addTarget(self, action: #selector(musicConfigButtonAction), for: .touchUpInside)
+        musicPauseButton.isHidden = true
+        view.addSubview(musicPauseButton)
+        
     }
     
     @objc func configButtonAction (sender: UIButton!) {
-        print("Pause button tapped")
+        print("Config button tapped")
         configButton.isHidden = true
         pauseButton.isHidden = true
         blurSubview.isHidden = false
@@ -279,6 +328,24 @@ class MaeDaguaFirstScene: SKScene {
         connectedLabel.isHidden = false
         backTextButton.isHidden = false
         backIconButton.isHidden = false
+        soundConfigButton.isHidden = false
+        musicConfigButton.isHidden = false
+    }
+    
+    @objc func soundConfigButtonAction (sender: UIButton!) {
+        print("Sound button tapped")
+    }
+    
+    @objc func musicConfigButtonAction (sender: UIButton!) {
+        print("Music button tapped")
+    }
+    
+    @objc func soundPauseButtonAction (sender: UIButton!) {
+        print("Sound button tapped")
+    }
+    
+    @objc func musicPauseButtonAction (sender: UIButton!) {
+        print("Music button tapped")
     }
     
     @objc func backButtonAction (sender: UIButton!) {
@@ -292,6 +359,10 @@ class MaeDaguaFirstScene: SKScene {
         connectedLabel.isHidden = true
         backTextButton.isHidden = true
         backIconButton.isHidden = true
+        soundConfigButton.isHidden = true
+        musicConfigButton.isHidden = true
+        soundPauseButton.isHidden = true
+        musicPauseButton.isHidden = true
     }
     
     @objc func pauseButtonAction (sender: UIButton!) {
@@ -304,6 +375,8 @@ class MaeDaguaFirstScene: SKScene {
         beginButton.isHidden = false
         soundPauseLabel.isHidden = false
         musicPauseLabel.isHidden = false
+        soundPauseButton.isHidden = false
+        musicPauseButton.isHidden = false
     }
     
     @objc func continueButtonAction (sender: UIButton!) {
@@ -322,6 +395,8 @@ class MaeDaguaFirstScene: SKScene {
         connectedLabel.isHidden = true
         backTextButton.isHidden = true
         backIconButton.isHidden = true
+        soundPauseButton.isHidden = true
+        musicPauseButton.isHidden = true
     }
     
     @objc func beginButtonAction (sender: UIButton!) {
