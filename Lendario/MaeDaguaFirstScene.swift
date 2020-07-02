@@ -87,21 +87,6 @@ class MaeDaguaFirstScene: SKScene {
         backgroundDayRiver.isHidden = true
         self.addChild(backgroundDayRiver)
         
-        //background setup
-        backgroundNightFloor = SKSpriteNode(imageNamed: "CenarioNoite2")
-        backgroundNightFloor.anchorPoint = .zero
-        backgroundNightFloor.position = CGPoint(x: -frame.width/2, y: 0)
-        backgroundNightFloor.zPosition = 0
-        backgroundNightFloor.isHidden = true
-        self.addChild(backgroundNightFloor)
-        
-        backgroundNightRiver = SKSpriteNode(imageNamed: "CenarioNoite1")
-        backgroundNightRiver.anchorPoint = .zero
-        backgroundNightRiver.position = CGPoint(x: -frame.width/2, y: 0)
-        backgroundNightRiver.zPosition = 0
-        backgroundNightRiver.isHidden = true
-        self.addChild(backgroundNightRiver)
-        
         blurSubview.frame = view.bounds
         blurSubview.backgroundColor = UIColor(white: 1, alpha: 0.7)
         blurSubview.addTarget(self, action: #selector(continueButtonAction), for: .touchUpInside)
