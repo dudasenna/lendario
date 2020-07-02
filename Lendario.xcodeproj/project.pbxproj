@@ -21,6 +21,8 @@
 		B4C06A8424A163AF00E77AE3 /* xilosa_.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4C06A8324A163AF00E77AE3 /* xilosa_.ttf */; };
 		B4C06A8624A26E6E00E77AE3 /* ChelseaMarket-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4C06A8524A26E6E00E77AE3 /* ChelseaMarket-Regular.ttf */; };
 		B4C06A8824A279B900E77AE3 /* OpenScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C06A8724A279B900E77AE3 /* OpenScene.swift */; };
+		CBEB74B624AE2AB200F842B9 /* rio_passaros.wav in Resources */ = {isa = PBXBuildFile; fileRef = CBEB74B424AE2AB200F842B9 /* rio_passaros.wav */; };
+		CBEB74B724AE2AB200F842B9 /* tela_inicial.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CBEB74B524AE2AB200F842B9 /* tela_inicial.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		B4C06A8324A163AF00E77AE3 /* xilosa_.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = xilosa_.ttf; sourceTree = "<group>"; };
 		B4C06A8524A26E6E00E77AE3 /* ChelseaMarket-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChelseaMarket-Regular.ttf"; sourceTree = "<group>"; };
 		B4C06A8724A279B900E77AE3 /* OpenScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenScene.swift; sourceTree = "<group>"; };
+		CBEB74B424AE2AB200F842B9 /* rio_passaros.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rio_passaros.wav; sourceTree = "<group>"; };
+		CBEB74B524AE2AB200F842B9 /* tela_inicial.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tela_inicial.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 				B4C06A7424A0EF1500E77AE3 /* Assets.xcassets */,
 				B4C06A7624A0EF1500E77AE3 /* LaunchScreen.storyboard */,
 				B4C06A7924A0EF1500E77AE3 /* Info.plist */,
+				CBEB74B324AE2AB200F842B9 /* SoundEffects */,
 				B4C06A8224A1633B00E77AE3 /* Fonts */,
 			);
 			path = Lendario;
@@ -97,6 +102,15 @@
 				B4C06A8524A26E6E00E77AE3 /* ChelseaMarket-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CBEB74B324AE2AB200F842B9 /* SoundEffects */ = {
+			isa = PBXGroup;
+			children = (
+				CBEB74B424AE2AB200F842B9 /* rio_passaros.wav */,
+				CBEB74B524AE2AB200F842B9 /* tela_inicial.mp3 */,
+			);
+			path = SoundEffects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,6 +172,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4C06A7324A0EF1300E77AE3 /* Main.storyboard in Resources */,
+				CBEB74B624AE2AB200F842B9 /* rio_passaros.wav in Resources */,
+				CBEB74B724AE2AB200F842B9 /* tela_inicial.mp3 in Resources */,
 				B4C06A7524A0EF1500E77AE3 /* Assets.xcassets in Resources */,
 				B4C06A7824A0EF1500E77AE3 /* LaunchScreen.storyboard in Resources */,
 				B4C06A8624A26E6E00E77AE3 /* ChelseaMarket-Regular.ttf in Resources */,

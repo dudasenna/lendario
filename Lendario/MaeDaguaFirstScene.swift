@@ -28,6 +28,9 @@ class MaeDaguaFirstScene: SKScene {
     var secondSpeechFlag = 0
     var currentLine = 0
     
+    //Som de Background
+    var backgroundMusic: SKAudioNode!
+    
     private var charWalkingFrames: [SKTexture] = []
     private var fishmanWalkingFrames: [SKTexture] = []
     
@@ -78,6 +81,12 @@ class MaeDaguaFirstScene: SKScene {
         self.anchorPoint = .zero
         //atribui a câmera
         self.camera = cam
+        
+        //Adiciona som de fundo
+        if let musicURL = Bundle.main.url(forResource: "rio_passaros", withExtension: "wav") {
+           backgroundMusic = SKAudioNode(url: musicURL)
+           addChild(backgroundMusic)
+        }
         
         //Posiciona a personagem principal na cena
         buildChar()
