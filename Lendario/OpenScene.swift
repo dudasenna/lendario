@@ -23,6 +23,9 @@ class OpenScene: SKScene {
     var fourthPhrase: String!
     var fifthPhrase: String!
     
+    //Som de Background
+    var backgroundMusic: SKAudioNode!
+    
     //Flag usada para identificar o toque na última tela da pageControl (gambiarra)
     var lastPageFlag: Int!
     
@@ -37,6 +40,12 @@ class OpenScene: SKScene {
     
     override func didMove(to view: SKView){
         self.anchorPoint = .zero
+        
+        //Adiciona som de fundo
+        if let musicURL = Bundle.main.url(forResource: "tela_inicial", withExtension: "mp3") {
+           backgroundMusic = SKAudioNode(url: musicURL)
+           addChild(backgroundMusic)
+        }
         
         pageControl.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         pageControl.numberOfPages = 5
@@ -88,7 +97,7 @@ class OpenScene: SKScene {
         view.addSubview(presentationText)
         
         //Configura o botão
-        skipButton.frame = CGRect (x: size.width * 0.85, y: size.height * 0.07, width: 70, height: 20)
+        skipButton.frame = CGRect (x: size.width * 0.85, y: size.height * 0.07, width: 70, height: 30)
         skipButton.titleLabel?.font = UIFont(name: "ChelseaMarket-Regular", size: 15)
         skipButton.setTitleColor(.white, for: .normal)
         skipButton.setImage(UIImage(named:"BackArrow"), for:.normal)
