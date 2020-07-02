@@ -28,6 +28,7 @@ class GameViewController: UIViewController {
             
             //Configura a MainScene para ter o mesmo tamanho da view
             let scene = MainScene(size: view.bounds.size)
+//            let scene = MaeDaguaSecondScene(size: view.bounds.size)
             scene.scaleMode = .resizeFill
             
             //Chama a MainScene
