@@ -389,6 +389,8 @@ class MaeDaguaFirstScene: SKScene {
         beginButton.isHidden = true
         soundPauseLabel.isHidden = true
         musicPauseLabel.isHidden = true
+        soundConfigButton.isHidden = true
+        musicConfigButton.isHidden = true
         configLabel.isHidden = true
         soundConfigLabel.isHidden = true
         musicConfigLabel.isHidden = true
